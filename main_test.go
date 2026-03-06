@@ -31,6 +31,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/nuget"
 	"github.com/arkriny/pkgrep/internal/opam"
 	"github.com/arkriny/pkgrep/internal/opensuse"
+	"github.com/arkriny/pkgrep/internal/pkggodev"
 	"github.com/arkriny/pkgrep/internal/pubdev"
 	"github.com/arkriny/pkgrep/internal/pypi"
 	"github.com/arkriny/pkgrep/internal/rubygems"
@@ -82,6 +83,7 @@ var tests = []testcase{
 	{"NuGet", nuget.Client{testHTTPClient}, "Azure.Core"},
 	{"opam", opam.Client{testHTTPClient}, "ocaml"},
 	{"openSUSE", opensuse.Client{testHTTPClient}, "linux-firmware"},
+	{"pkg.go.dev", pkggodev.Client{testHTTPClient}, "http"},
 	{"pub.dev", pubdev.Client{testHTTPClient}, "http"},
 	{"PyPI", pypi.Client{testHTTPClient}, "pip"},
 	{"RubyGems", rubygems.Client{testHTTPClient}, "rails"},
