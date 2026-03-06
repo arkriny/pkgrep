@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"net/url"
 	"os"
 
 	"github.com/arkriny/pkgrep/internal/archlinux"
@@ -12,6 +13,7 @@ import (
 
 // QueryFunc is a function that accepts a search query string and returns a
 // boolean indicating whether the package was found, or an error.
+// The query string should be URL-safe.
 type QueryFunc func(query string) (bool, error)
 
 type Repository struct {
@@ -40,6 +42,7 @@ func main() {
 	}
 
 	query := flag.Arg(0)
+	query = url.QueryEscape(query)
 
 	for _, repo := range repos {
 		found, err := repo.Qf(query)
