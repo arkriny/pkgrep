@@ -8,6 +8,7 @@ Supported package repositories:
 - [crates.io](https://crates.io/)
 - [Debian](https://www.debian.org/distrib/packages)
 - [Fedora Linux](https://packages.fedoraproject.org/)
+- [Nixpkgs](https://search.nixos.org/packages)
 - [NPM](https://www.npmjs.com/)
 - [PyPI](https://pypi.org/)
 - [RubyGems](https://rubygems.org/)

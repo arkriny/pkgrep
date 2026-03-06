@@ -14,6 +14,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/cratesio"
 	"github.com/arkriny/pkgrep/internal/debain"
 	"github.com/arkriny/pkgrep/internal/fedora"
+	"github.com/arkriny/pkgrep/internal/nixpkgs"
 	"github.com/arkriny/pkgrep/internal/npm"
 	"github.com/arkriny/pkgrep/internal/pypi"
 	"github.com/arkriny/pkgrep/internal/rubygems"
@@ -38,6 +39,7 @@ var repos = []Repository{
 	{"crates.io", cratesio.Query},
 	{"Debian", debian.Query},
 	{"Fedora", fedora.Query},
+	{"Nixpkgs", nixpkgs.Query},
 	{"NPM", npm.Query},
 	{"PyPI", pypi.Query},
 	{"RubyGems", rubygems.Query},
