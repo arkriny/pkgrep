@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/url"
 	"os"
+	"sync"
 
 	"github.com/arkriny/pkgrep/internal/alpine"
 	"github.com/arkriny/pkgrep/internal/archlinux"
@@ -52,17 +53,36 @@ func main() {
 	query := flag.Arg(0)
 	query = url.QueryEscape(query)
 
-	for _, repo := range repos {
-		found, err := repo.Qf(query)
-		if err != nil {
-			log.Fatal(err)
-		}
+	var wg sync.WaitGroup
+	results := make(chan string)
 
-		if found {
-			fmt.Print("*")
-		} else {
-			fmt.Print("-")
-		}
-		fmt.Printf(" %s\n", repo.Name)
+	for _, repo := range repos {
+		wg.Add(1)
+		go func(r Repository) {
+			defer wg.Done()
+
+			found, err := r.Qf(query)
+			if err != nil {
+				log.Println(err)
+				return
+			}
+
+			var result string
+			if found {
+				result = fmt.Sprintf("* %s", r.Name)
+			} else {
+				result = fmt.Sprintf("- %s", r.Name)
+			}
+			results <- result
+		}(repo)
+	}
+
+	go func() {
+		wg.Wait()
+		close(results)
+	}()
+
+	for result := range results {
+		fmt.Println(result)
 	}
 }
