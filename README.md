@@ -8,4 +8,5 @@ Supported package repositories:
 - [crates.io](https://crates.io/)
 - [NPM](https://www.npmjs.com/)
 - [PyPI](https://pypi.org/)
+- [RubyGems](https://rubygems.org/)
 - [Void Linux](https://voidlinux.org/packages/)

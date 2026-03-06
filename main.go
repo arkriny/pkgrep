@@ -14,6 +14,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/cratesio"
 	"github.com/arkriny/pkgrep/internal/npm"
 	"github.com/arkriny/pkgrep/internal/pypi"
+	"github.com/arkriny/pkgrep/internal/rubygems"
 	"github.com/arkriny/pkgrep/internal/voidlinux"
 )
 
@@ -34,6 +35,7 @@ var repos = []Repository{
 	{"crates.io", cratesio.Query},
 	{"NPM", npm.Query},
 	{"PyPI", pypi.Query},
+	{"RubyGems", rubygems.Query},
 	{"Void", voidlinux.Query},
 }
 
