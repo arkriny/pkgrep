@@ -41,6 +41,11 @@ var repos = []Repository{
 	{"Void", voidlinux.Query},
 }
 
+type Result struct {
+	Name  string
+	Found bool
+}
+
 func main() {
 	log.SetPrefix("pkgrep: ")
 	log.SetFlags(0)
@@ -60,7 +65,7 @@ func main() {
 	query = url.QueryEscape(query)
 
 	var wg sync.WaitGroup
-	results := make(chan string)
+	results := make(chan Result)
 
 	for _, repo := range repos {
 		wg.Add(1)
@@ -73,13 +78,10 @@ func main() {
 				return
 			}
 
-			var result string
-			if found {
-				result = fmt.Sprintf("* %s", r.Name)
-			} else {
-				result = fmt.Sprintf("- %s", r.Name)
+			results <- Result{
+				Name:  r.Name,
+				Found: found,
 			}
-			results <- result
 		}(repo)
 	}
 
@@ -88,7 +90,18 @@ func main() {
 		close(results)
 	}()
 
+	foundAny := false
 	for result := range results {
-		fmt.Println(result)
+		if result.Found {
+			fmt.Printf("*")
+			foundAny = true
+		} else {
+			fmt.Print("-")
+		}
+		fmt.Printf(" %s\n", result.Name)
+	}
+
+	if !foundAny {
+		os.Exit(1)
 	}
 }
