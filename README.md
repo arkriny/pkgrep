@@ -7,6 +7,7 @@ Supported package repositories:
 - [AUR](https://aur.archlinux.org/)
 - [crates.io](https://crates.io/)
 - [Debian](https://www.debian.org/distrib/packages)
+- [Fedora Linux](https://packages.fedoraproject.org/)
 - [NPM](https://www.npmjs.com/)
 - [PyPI](https://pypi.org/)
 - [RubyGems](https://rubygems.org/)
