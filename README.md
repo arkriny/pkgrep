@@ -9,4 +9,5 @@ Supported package repositories:
 - [NPM](https://www.npmjs.com/)
 - [PyPI](https://pypi.org/)
 - [RubyGems](https://rubygems.org/)
+- [Ubuntu](https://packages.ubuntu.com/)
 - [Void Linux](https://voidlinux.org/packages/)

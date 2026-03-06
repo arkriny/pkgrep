@@ -15,6 +15,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/npm"
 	"github.com/arkriny/pkgrep/internal/pypi"
 	"github.com/arkriny/pkgrep/internal/rubygems"
+	"github.com/arkriny/pkgrep/internal/ubuntu"
 	"github.com/arkriny/pkgrep/internal/voidlinux"
 )
 
@@ -36,6 +37,7 @@ var repos = []Repository{
 	{"NPM", npm.Query},
 	{"PyPI", pypi.Query},
 	{"RubyGems", rubygems.Query},
+	{"Ubuntu", ubuntu.Query},
 	{"Void", voidlinux.Query},
 }
 
