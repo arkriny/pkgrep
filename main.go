@@ -11,6 +11,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/alpine"
 	"github.com/arkriny/pkgrep/internal/archlinux"
 	"github.com/arkriny/pkgrep/internal/aur"
+	"github.com/arkriny/pkgrep/internal/cratesio"
 	"github.com/arkriny/pkgrep/internal/npm"
 	"github.com/arkriny/pkgrep/internal/pypi"
 	"github.com/arkriny/pkgrep/internal/voidlinux"
@@ -30,6 +31,7 @@ var repos = []Repository{
 	{"Alpine", alpine.Query},
 	{"Arch", archlinux.Query},
 	{"AUR", aur.Query},
+	{"crates.io", cratesio.Query},
 	{"NPM", npm.Query},
 	{"PyPI", pypi.Query},
 	{"Void", voidlinux.Query},
