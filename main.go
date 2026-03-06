@@ -9,6 +9,7 @@ import (
 
 	"github.com/arkriny/pkgrep/internal/archlinux"
 	"github.com/arkriny/pkgrep/internal/aur"
+	"github.com/arkriny/pkgrep/internal/npm"
 	"github.com/arkriny/pkgrep/internal/pypi"
 )
 
@@ -25,6 +26,7 @@ type Repository struct {
 var repos = []Repository{
 	{"Arch", archlinux.Query},
 	{"AUR", aur.Query},
+	{"NPM", npm.Query},
 	{"PyPI", pypi.Query},
 }
 
