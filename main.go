@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/arkriny/pkgrep/internal/archlinux"
 	"github.com/arkriny/pkgrep/internal/pypi"
 )
 
@@ -19,10 +20,8 @@ type Repository struct {
 }
 
 var repos = []Repository{
-	{
-		Name: "PyPI",
-		Qf:   pypi.Query,
-	},
+	{"Arch", archlinux.Query},
+	{"PyPI", pypi.Query},
 }
 
 func main() {
