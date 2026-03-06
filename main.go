@@ -15,6 +15,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/debain"
 	"github.com/arkriny/pkgrep/internal/fedora"
 	"github.com/arkriny/pkgrep/internal/freebsd"
+	"github.com/arkriny/pkgrep/internal/guix"
 	"github.com/arkriny/pkgrep/internal/nixpkgs"
 	"github.com/arkriny/pkgrep/internal/npm"
 	"github.com/arkriny/pkgrep/internal/pypi"
@@ -41,6 +42,7 @@ var repos = []Repository{
 	{"Debian", debian.Query},
 	{"Fedora", fedora.Query},
 	{"FreeBSD", freebsd.Query},
+	{"Guix", guix.Query},
 	{"Nixpkgs", nixpkgs.Query},
 	{"NPM", npm.Query},
 	{"PyPI", pypi.Query},

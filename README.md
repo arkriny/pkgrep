@@ -9,6 +9,7 @@ Supported package repositories:
 - [Debian](https://www.debian.org/distrib/packages)
 - [Fedora Linux](https://packages.fedoraproject.org/)
 - [FreeBSD Ports](https://ports.freebsd.org)
+- [GNU Guix](https://packages.guix.gnu.org/)
 - [Nixpkgs](https://search.nixos.org/packages)
 - [NPM](https://www.npmjs.com/)
 - [PyPI](https://pypi.org/)
