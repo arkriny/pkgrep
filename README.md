@@ -19,6 +19,7 @@ Supported package repositories:
 - [openSUSE](https://software.opensuse.org/)
 - [PyPI](https://pypi.org/)
 - [RubyGems](https://rubygems.org/)
+- [Scoop](https://scoop.sh/)
 - [Snapcraft](https://snapcraft.io/)
 - [Ubuntu](https://packages.ubuntu.com/)
 - [Void Linux](https://voidlinux.org/packages/)

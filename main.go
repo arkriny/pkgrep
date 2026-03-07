@@ -26,6 +26,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/opensuse"
 	"github.com/arkriny/pkgrep/internal/pypi"
 	"github.com/arkriny/pkgrep/internal/rubygems"
+	"github.com/arkriny/pkgrep/internal/scoop"
 	"github.com/arkriny/pkgrep/internal/sisyphus"
 	"github.com/arkriny/pkgrep/internal/snapcraft"
 	"github.com/arkriny/pkgrep/internal/ubuntu"
@@ -66,6 +67,7 @@ var repos = []Repository{
 	{"openSUSE", opensuse.Client{httpClient}},
 	{"PyPI", pypi.Client{httpClient}},
 	{"RubyGems", rubygems.Client{httpClient}},
+	{"Scoop", scoop.Client{httpClient}},
 	{"Sisyphus", sisyphus.Client{httpClient}},
 	{"Snapcraft", snapcraft.Client{httpClient}},
 	{"Ubuntu", ubuntu.Client{httpClient}},
