@@ -17,6 +17,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/fedora"
 	"github.com/arkriny/pkgrep/internal/guix"
 	"github.com/arkriny/pkgrep/internal/homebrew"
+	"github.com/arkriny/pkgrep/internal/kali"
 	"github.com/arkriny/pkgrep/internal/macports"
 	"github.com/arkriny/pkgrep/internal/nixpkgs"
 	"github.com/arkriny/pkgrep/internal/npm"
@@ -49,6 +50,7 @@ var repos = []Repository{
 	{"Fedora", fedora.Query},
 	{"Guix", guix.Query},
 	{"Homebrew", homebrew.Query},
+	{"Kali", kali.Query},
 	{"MacPorts", macports.Query},
 	{"Nixpkgs", nixpkgs.Query},
 	{"NPM", npm.Query},

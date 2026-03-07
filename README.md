@@ -12,6 +12,7 @@ Supported package repositories:
 - [Fedora Linux](https://packages.fedoraproject.org/)
 - [GNU Guix](https://packages.guix.gnu.org/)
 - [Homebrew](https://brew.sh/)
+- [Kali](https://pkg.kali.org/)
 - [MacPorts](https://ports.macports.org/)
 - [Nixpkgs](https://search.nixos.org/packages)
 - [NPM](https://www.npmjs.com/)
