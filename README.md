@@ -12,6 +12,7 @@ Supported package repositories:
 - [Homebrew](https://brew.sh/)
 - [Nixpkgs](https://search.nixos.org/packages)
 - [NPM](https://www.npmjs.com/)
+- [openSUSE](https://software.opensuse.org/)
 - [PyPI](https://pypi.org/)
 - [RubyGems](https://rubygems.org/)
 - [Ubuntu](https://packages.ubuntu.com/)

@@ -18,6 +18,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/homebrew"
 	"github.com/arkriny/pkgrep/internal/nixpkgs"
 	"github.com/arkriny/pkgrep/internal/npm"
+	"github.com/arkriny/pkgrep/internal/opensuse"
 	"github.com/arkriny/pkgrep/internal/pypi"
 	"github.com/arkriny/pkgrep/internal/rubygems"
 	"github.com/arkriny/pkgrep/internal/ubuntu"
@@ -45,6 +46,7 @@ var repos = []Repository{
 	{"Homebrew", homebrew.Query},
 	{"Nixpkgs", nixpkgs.Query},
 	{"NPM", npm.Query},
+	{"openSUSE", opensuse.Query},
 	{"PyPI", pypi.Query},
 	{"RubyGems", rubygems.Query},
 	{"Ubuntu", ubuntu.Query},
