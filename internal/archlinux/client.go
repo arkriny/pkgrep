@@ -6,15 +6,17 @@ import (
 	"net/http"
 )
 
-type Client struct{}
+type Client struct {
+	HTTPClient *http.Client
+}
 
 type responseBody struct {
 	Results []json.RawMessage `json:"results"`
 }
 
-func (Client) Query(query string) (bool, error) {
+func (c Client) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://archlinux.org/packages/search/json/?name=%s", query)
-	resp, err := http.Get(url)
+	resp, err := c.HTTPClient.Get(url)
 	if err != nil {
 		return false, err
 	}

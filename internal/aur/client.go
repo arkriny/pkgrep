@@ -6,15 +6,17 @@ import (
 	"net/http"
 )
 
-type Client struct{}
+type Client struct {
+	HTTPClient *http.Client
+}
 
 type responseBody struct {
 	ResultCount int `json:"resultcount"`
 }
 
-func (Client) Query(query string) (bool, error) {
+func (c Client) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://aur.archlinux.org/rpc/v5/info/%s", query)
-	resp, err := http.Get(url)
+	resp, err := c.HTTPClient.Get(url)
 	if err != nil {
 		return false, err
 	}

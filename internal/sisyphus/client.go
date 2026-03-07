@@ -2,13 +2,17 @@ package sisyphus
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/arkriny/pkgrep/internal/httputil"
 )
 
-type Client struct{}
+type Client struct {
+	HTTPClient *http.Client
+}
 
-func (Client) Query(query string) (bool, error) {
-	contains, err := httputil.GetBodyContains(fmt.Sprintf("https://packages.altlinux.org/en/sisyphus/srpms/%s", query), "404: That page no exists")
+func (c Client) Query(query string) (bool, error) {
+	url := fmt.Sprintf("https://packages.altlinux.org/en/sisyphus/srpms/%s", query)
+	contains, err := httputil.GetBodyContains(c.HTTPClient, url, "404: That page no exists")
 	return !contains, err
 }

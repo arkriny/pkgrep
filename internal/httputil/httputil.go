@@ -8,8 +8,8 @@ import (
 
 // GetCheckOK is a helper function that sends request to URL and checks if
 // response status code is 200 (OK).
-func GetCheckOK(url string) (bool, error) {
-	resp, err := http.Get(url)
+func GetCheckOK(client *http.Client, url string) (bool, error) {
+	resp, err := client.Get(url)
 	if err != nil {
 		return false, err
 	}
@@ -21,8 +21,8 @@ func GetCheckOK(url string) (bool, error) {
 
 // GetBodyContains is a helper function that sends request to URL and checks if
 // response body contains specified substr.
-func GetBodyContains(url, substr string) (bool, error) {
-	resp, err := http.Get(url)
+func GetBodyContains(client *http.Client, url, substr string) (bool, error) {
+	resp, err := client.Get(url)
 	if err != nil {
 		return false, err
 	}

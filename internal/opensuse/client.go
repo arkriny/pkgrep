@@ -2,14 +2,17 @@ package opensuse
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/arkriny/pkgrep/internal/httputil"
 )
 
-type Client struct{}
+type Client struct {
+	HTTPClient *http.Client
+}
 
-func (Client) Query(query string) (bool, error) {
+func (c Client) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://software.opensuse.org/package/%s", query)
-	contains, err := httputil.GetBodyContains(url, "not found...")
+	contains, err := httputil.GetBodyContains(c.HTTPClient, url, "not found...")
 	return !contains, err
 }

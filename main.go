@@ -4,9 +4,11 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"net/http"
 	"net/url"
 	"os"
 	"sync"
+	"time"
 
 	"github.com/arkriny/pkgrep/internal/alpine"
 	"github.com/arkriny/pkgrep/internal/archlinux"
@@ -42,27 +44,32 @@ type Repository struct {
 	Querier Querier
 }
 
+var httpClient = &http.Client{
+	// TODO(arkriny): make configurable.
+	Timeout: 20 * time.Second,
+}
+
 var repos = []Repository{
-	{"Alpine", alpine.Client{}},
-	{"Arch", archlinux.Client{}},
-	{"AUR", aur.Client{}},
-	{"Chocolatey", chocolatey.Client{}},
-	{"crates.io", cratesio.Client{}},
-	{"Debian", debian.Client{}},
-	{"Fedora", fedora.Client{}},
-	{"Guix", guix.Client{}},
-	{"Homebrew", homebrew.Client{}},
-	{"Kali", kali.Client{}},
-	{"MacPorts", macports.Client{}},
-	{"Nixpkgs", nixpkgs.Client{}},
-	{"NPM", npm.Client{}},
-	{"openSUSE", opensuse.Client{}},
-	{"PyPI", pypi.Client{}},
-	{"RubyGems", rubygems.Client{}},
-	{"Sisyphus", sisyphus.Client{}},
-	{"Snapcraft", snapcraft.Client{}},
-	{"Ubuntu", ubuntu.Client{}},
-	{"Void", voidlinux.Client{}},
+	{"Alpine", alpine.Client{httpClient}},
+	{"Arch", archlinux.Client{httpClient}},
+	{"AUR", aur.Client{httpClient}},
+	{"Chocolatey", chocolatey.Client{httpClient}},
+	{"crates.io", cratesio.Client{httpClient}},
+	{"Debian", debian.Client{httpClient}},
+	{"Fedora", fedora.Client{httpClient}},
+	{"Guix", guix.Client{httpClient}},
+	{"Homebrew", homebrew.Client{httpClient}},
+	{"Kali", kali.Client{httpClient}},
+	{"MacPorts", macports.Client{httpClient}},
+	{"Nixpkgs", nixpkgs.Client{httpClient}},
+	{"NPM", npm.Client{httpClient}},
+	{"openSUSE", opensuse.Client{httpClient}},
+	{"PyPI", pypi.Client{httpClient}},
+	{"RubyGems", rubygems.Client{httpClient}},
+	{"Sisyphus", sisyphus.Client{httpClient}},
+	{"Snapcraft", snapcraft.Client{httpClient}},
+	{"Ubuntu", ubuntu.Client{httpClient}},
+	{"Void", voidlinux.Client{httpClient}},
 }
 
 type Result struct {
