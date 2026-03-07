@@ -6,6 +6,7 @@ Supported package repositories:
 - [ALT Sisyphus](https://packages.altlinux.org/en/sisyphus/)
 - [Arch Linux](https://archlinux.org/packages/)
 - [AUR](https://aur.archlinux.org/)
+- [Chocolatey](https://chocolatey.org/)
 - [crates.io](https://crates.io/)
 - [Debian](https://www.debian.org/distrib/packages)
 - [Fedora Linux](https://packages.fedoraproject.org/)

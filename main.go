@@ -11,6 +11,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/alpine"
 	"github.com/arkriny/pkgrep/internal/archlinux"
 	"github.com/arkriny/pkgrep/internal/aur"
+	"github.com/arkriny/pkgrep/internal/chocolatey"
 	"github.com/arkriny/pkgrep/internal/cratesio"
 	"github.com/arkriny/pkgrep/internal/debain"
 	"github.com/arkriny/pkgrep/internal/fedora"
@@ -42,6 +43,7 @@ var repos = []Repository{
 	{"Alpine", alpine.Query},
 	{"Arch", archlinux.Query},
 	{"AUR", aur.Query},
+	{"Chocolatey", chocolatey.Query},
 	{"crates.io", cratesio.Query},
 	{"Debian", debian.Query},
 	{"Fedora", fedora.Query},
