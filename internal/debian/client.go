@@ -6,11 +6,13 @@ import (
 	"net/http"
 )
 
+type Client struct{}
+
 type responseBody struct {
 	Error *json.RawMessage `json:"error"`
 }
 
-func Query(query string) (bool, error) {
+func (Client) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://sources.debian.org/api/src/%s", query)
 	resp, err := http.Get(url)
 	if err != nil {

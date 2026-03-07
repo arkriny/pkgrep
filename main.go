@@ -30,37 +30,39 @@ import (
 	"github.com/arkriny/pkgrep/internal/voidlinux"
 )
 
-// QueryFunc is a function that accepts a search query string and returns a
-// boolean indicating whether the package was found, or an error.
-// The query string should be URL-safe.
-type QueryFunc func(query string) (bool, error)
+type Querier interface {
+	// Query accepts a search query string and returns a
+	// boolean indicating whether the package was found, or an error.
+	// The query string should be URL-safe.
+	Query(query string) (bool, error)
+}
 
 type Repository struct {
-	Name string
-	Qf   QueryFunc
+	Name    string
+	Querier Querier
 }
 
 var repos = []Repository{
-	{"Alpine", alpine.Query},
-	{"Arch", archlinux.Query},
-	{"AUR", aur.Query},
-	{"Chocolatey", chocolatey.Query},
-	{"crates.io", cratesio.Query},
-	{"Debian", debian.Query},
-	{"Fedora", fedora.Query},
-	{"Guix", guix.Query},
-	{"Homebrew", homebrew.Query},
-	{"Kali", kali.Query},
-	{"MacPorts", macports.Query},
-	{"Nixpkgs", nixpkgs.Query},
-	{"NPM", npm.Query},
-	{"openSUSE", opensuse.Query},
-	{"PyPI", pypi.Query},
-	{"RubyGems", rubygems.Query},
-	{"Sisyphus", sisyphus.Query},
-	{"Snapcraft", snapcraft.Query},
-	{"Ubuntu", ubuntu.Query},
-	{"Void", voidlinux.Query},
+	{"Alpine", alpine.Client{}},
+	{"Arch", archlinux.Client{}},
+	{"AUR", aur.Client{}},
+	{"Chocolatey", chocolatey.Client{}},
+	{"crates.io", cratesio.Client{}},
+	{"Debian", debian.Client{}},
+	{"Fedora", fedora.Client{}},
+	{"Guix", guix.Client{}},
+	{"Homebrew", homebrew.Client{}},
+	{"Kali", kali.Client{}},
+	{"MacPorts", macports.Client{}},
+	{"Nixpkgs", nixpkgs.Client{}},
+	{"NPM", npm.Client{}},
+	{"openSUSE", opensuse.Client{}},
+	{"PyPI", pypi.Client{}},
+	{"RubyGems", rubygems.Client{}},
+	{"Sisyphus", sisyphus.Client{}},
+	{"Snapcraft", snapcraft.Client{}},
+	{"Ubuntu", ubuntu.Client{}},
+	{"Void", voidlinux.Client{}},
 }
 
 type Result struct {
@@ -94,7 +96,7 @@ func main() {
 		go func(r Repository) {
 			defer wg.Done()
 
-			found, err := r.Qf(query)
+			found, err := r.Querier.Query(query)
 			if err != nil {
 				log.Println(err)
 				return

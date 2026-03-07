@@ -6,7 +6,9 @@ import (
 	"github.com/arkriny/pkgrep/internal/httputil"
 )
 
-func Query(query string) (bool, error) {
+type Client struct{}
+
+func (Client) Query(query string) (bool, error) {
 	// Try formula
 	url := fmt.Sprintf("https://formulae.brew.sh/api/formula/%s.json", query)
 	ok, err := httputil.GetCheckOK(url)

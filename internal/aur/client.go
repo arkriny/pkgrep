@@ -1,4 +1,4 @@
-package archlinux
+package aur
 
 import (
 	"encoding/json"
@@ -6,12 +6,14 @@ import (
 	"net/http"
 )
 
+type Client struct{}
+
 type responseBody struct {
-	Results []json.RawMessage `json:"results"`
+	ResultCount int `json:"resultcount"`
 }
 
-func Query(query string) (bool, error) {
-	url := fmt.Sprintf("https://archlinux.org/packages/search/json/?name=%s", query)
+func (Client) Query(query string) (bool, error) {
+	url := fmt.Sprintf("https://aur.archlinux.org/rpc/v5/info/%s", query)
 	resp, err := http.Get(url)
 	if err != nil {
 		return false, err
@@ -24,6 +26,6 @@ func Query(query string) (bool, error) {
 		return false, err
 	}
 
-	ok := len(r.Results) != 0
+	ok := r.ResultCount != 0
 	return ok, nil
 }
