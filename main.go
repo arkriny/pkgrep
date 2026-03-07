@@ -13,7 +13,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/aur"
 	"github.com/arkriny/pkgrep/internal/chocolatey"
 	"github.com/arkriny/pkgrep/internal/cratesio"
-	"github.com/arkriny/pkgrep/internal/debain"
+	"github.com/arkriny/pkgrep/internal/debian"
 	"github.com/arkriny/pkgrep/internal/fedora"
 	"github.com/arkriny/pkgrep/internal/guix"
 	"github.com/arkriny/pkgrep/internal/homebrew"
