@@ -4,6 +4,7 @@ Supported package repositories:
 
 - [Alpine Linux](https://pkgs.alpinelinux.org/packages/)
 - [ALT Sisyphus](https://packages.altlinux.org/en/sisyphus/)
+- [AOSC](https://packages.aosc.io/)
 - [Arch Linux](https://archlinux.org/packages/)
 - [AUR](https://aur.archlinux.org/)
 - [Chocolatey](https://chocolatey.org/)
