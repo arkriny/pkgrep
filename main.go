@@ -56,6 +56,10 @@ type Repository struct {
 }
 
 var httpClient = &http.Client{
+	Transport: &UserAgentRoundTripper{
+		RoundTripper: http.DefaultTransport,
+		UserAgent:    "pkgrep/0 (https://github.com/arkriny/pkgrep; mailto:arkriny@gmail.com)",
+	},
 	// TODO(arkriny): make configurable.
 	Timeout: 20 * time.Second,
 }

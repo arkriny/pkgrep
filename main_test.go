@@ -47,6 +47,10 @@ type testcase struct {
 }
 
 var testHTTPClient = &http.Client{
+	Transport: &UserAgentRoundTripper{
+		RoundTripper: http.DefaultTransport,
+		UserAgent:    "pkgrep-test/0 (https://github.com/arkriny/pkgrep; mailto:arkriny@gmail.com)",
+	},
 	Timeout: time.Minute,
 }
 
