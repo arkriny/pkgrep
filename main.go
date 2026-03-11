@@ -27,6 +27,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/macports"
 	"github.com/arkriny/pkgrep/internal/nixpkgs"
 	"github.com/arkriny/pkgrep/internal/npm"
+	"github.com/arkriny/pkgrep/internal/nuget"
 	"github.com/arkriny/pkgrep/internal/opam"
 	"github.com/arkriny/pkgrep/internal/opensuse"
 	"github.com/arkriny/pkgrep/internal/pypi"
@@ -73,6 +74,7 @@ var repos = []Repository{
 	{"MacPorts", macports.Client{httpClient}},
 	{"Nixpkgs", nixpkgs.Client{httpClient}},
 	{"NPM", npm.Client{httpClient}},
+	{"NuGet", nuget.Client{httpClient}},
 	{"opam", opam.Client{httpClient}},
 	{"openSUSE", opensuse.Client{httpClient}},
 	{"PyPI", pypi.Client{httpClient}},

@@ -20,6 +20,7 @@ Supported package repositories:
 - [MacPorts](https://ports.macports.org/)
 - [Nixpkgs](https://search.nixos.org/packages)
 - [NPM](https://www.npmjs.com/)
+- [NuGet](https://www.nuget.org/)
 - [opam](https://opam.ocaml.org/)
 - [openSUSE](https://software.opensuse.org/)
 - [PyPI](https://pypi.org/)
