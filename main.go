@@ -26,6 +26,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/julia"
 	"github.com/arkriny/pkgrep/internal/kali"
 	"github.com/arkriny/pkgrep/internal/macports"
+	"github.com/arkriny/pkgrep/internal/melpa"
 	"github.com/arkriny/pkgrep/internal/nixpkgs"
 	"github.com/arkriny/pkgrep/internal/npm"
 	"github.com/arkriny/pkgrep/internal/nuget"
@@ -75,6 +76,7 @@ var repos = []Repository{
 	{"Julia", julia.Client{httpClient}},
 	{"Kali", kali.Client{httpClient}},
 	{"MacPorts", macports.Client{httpClient}},
+	{"MELPA", melpa.Client{httpClient}},
 	{"Nixpkgs", nixpkgs.Client{httpClient}},
 	{"NPM", npm.Client{httpClient}},
 	{"NuGet", nuget.Client{httpClient}},
