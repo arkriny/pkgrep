@@ -11,6 +11,7 @@ Supported package repositories:
 - [CRAN](https://cran.r-project.org/)
 - [crates.io](https://crates.io/)
 - [Debian](https://www.debian.org/distrib/packages)
+- [DUB](https://code.dlang.org/)
 - [Fedora Linux](https://packages.fedoraproject.org/)
 - [GNU Guix](https://packages.guix.gnu.org/)
 - [Hackage](https://hackage.haskell.org/)

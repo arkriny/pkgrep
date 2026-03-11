@@ -15,6 +15,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/cran"
 	"github.com/arkriny/pkgrep/internal/cratesio"
 	"github.com/arkriny/pkgrep/internal/debian"
+	"github.com/arkriny/pkgrep/internal/dub"
 	"github.com/arkriny/pkgrep/internal/fedora"
 	"github.com/arkriny/pkgrep/internal/guix"
 	"github.com/arkriny/pkgrep/internal/hackage"
@@ -58,6 +59,7 @@ var tests = []testcase{
 	{"CRAN", cran.Client{testHTTPClient}, "ggplot2"},
 	{"crates.io", cratesio.Client{testHTTPClient}, "syn"},
 	{"Debian", debian.Client{testHTTPClient}, "linux-base"},
+	{"DUB", dub.Client{testHTTPClient}, "vibe-d"},
 	{"Fedora", fedora.Client{testHTTPClient}, "linux-firmware"},
 	{"Guix", guix.Client{testHTTPClient}, "go"},
 	{"Hackage", hackage.Client{testHTTPClient}, "ghc"},

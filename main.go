@@ -18,6 +18,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/cran"
 	"github.com/arkriny/pkgrep/internal/cratesio"
 	"github.com/arkriny/pkgrep/internal/debian"
+	"github.com/arkriny/pkgrep/internal/dub"
 	"github.com/arkriny/pkgrep/internal/fedora"
 	"github.com/arkriny/pkgrep/internal/guix"
 	"github.com/arkriny/pkgrep/internal/hackage"
@@ -68,6 +69,7 @@ var repos = []Repository{
 	{"CRAN", cran.Client{httpClient}},
 	{"crates.io", cratesio.Client{httpClient}},
 	{"Debian", debian.Client{httpClient}},
+	{"DUB", dub.Client{httpClient}},
 	{"Fedora", fedora.Client{httpClient}},
 	{"Guix", guix.Client{httpClient}},
 	{"Hackage", hackage.Client{httpClient}},
