@@ -24,6 +24,7 @@ Supported package repositories:
 - [NuGet](https://www.nuget.org/)
 - [opam](https://opam.ocaml.org/)
 - [openSUSE](https://software.opensuse.org/)
+- [pub.dev](https://pub.dev/)
 - [PyPI](https://pypi.org/)
 - [RubyGems](https://rubygems.org/)
 - [Scoop](https://scoop.sh/)

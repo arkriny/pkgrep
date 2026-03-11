@@ -31,6 +31,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/nuget"
 	"github.com/arkriny/pkgrep/internal/opam"
 	"github.com/arkriny/pkgrep/internal/opensuse"
+	"github.com/arkriny/pkgrep/internal/pubdev"
 	"github.com/arkriny/pkgrep/internal/pypi"
 	"github.com/arkriny/pkgrep/internal/rubygems"
 	"github.com/arkriny/pkgrep/internal/scoop"
@@ -79,6 +80,7 @@ var repos = []Repository{
 	{"NuGet", nuget.Client{httpClient}},
 	{"opam", opam.Client{httpClient}},
 	{"openSUSE", opensuse.Client{httpClient}},
+	{"pub.dev", pubdev.Client{httpClient}},
 	{"PyPI", pypi.Client{httpClient}},
 	{"RubyGems", rubygems.Client{httpClient}},
 	{"Scoop", scoop.Client{httpClient}},
