@@ -31,4 +31,4 @@ jobs:
         with:
           go-version-file: go.mod
       - name: Build
-        run: go test
+        run: go test -ldflags="-X 'main.testUserAgent=pkgrep-test-ci-runner/0 (https://github.com/arkriny/pkgrep; mailto:arkriny@gmail.com)'"
