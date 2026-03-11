@@ -20,6 +20,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/hackage"
 	hexclient "github.com/arkriny/pkgrep/internal/hex"
 	"github.com/arkriny/pkgrep/internal/homebrew"
+	"github.com/arkriny/pkgrep/internal/julia"
 	"github.com/arkriny/pkgrep/internal/kali"
 	"github.com/arkriny/pkgrep/internal/macports"
 	"github.com/arkriny/pkgrep/internal/nixpkgs"
@@ -60,6 +61,7 @@ var tests = []testcase{
 	{"Hackage", hackage.Client{testHTTPClient}, "ghc"},
 	{"Hex", hexclient.Client{testHTTPClient}, "phoenix"},
 	{"Homebrew", homebrew.Client{testHTTPClient}, "go"},
+	{"Julia", julia.Client{testHTTPClient}, "plots"},
 	{"Kali", kali.Client{testHTTPClient}, "linux"},
 	{"MacPorts", macports.Client{testHTTPClient}, "go"},
 	{"Nixpkgs", nixpkgs.Client{testHTTPClient}, "home-manager"},

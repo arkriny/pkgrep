@@ -16,6 +16,7 @@ Supported package repositories:
 - [Hackage](https://hackage.haskell.org/)
 - [Hex](https://hex.pm/)
 - [Homebrew](https://brew.sh/)
+- [Julia](https://juliapackages.com/)
 - [Kali](https://pkg.kali.org/)
 - [MacPorts](https://ports.macports.org/)
 - [Nixpkgs](https://search.nixos.org/packages)

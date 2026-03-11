@@ -23,6 +23,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/hackage"
 	"github.com/arkriny/pkgrep/internal/hex"
 	"github.com/arkriny/pkgrep/internal/homebrew"
+	"github.com/arkriny/pkgrep/internal/julia"
 	"github.com/arkriny/pkgrep/internal/kali"
 	"github.com/arkriny/pkgrep/internal/macports"
 	"github.com/arkriny/pkgrep/internal/nixpkgs"
@@ -70,6 +71,7 @@ var repos = []Repository{
 	{"Hackage", hackage.Client{httpClient}},
 	{"Hex", hex.Client{httpClient}},
 	{"Homebrew", homebrew.Client{httpClient}},
+	{"Julia", julia.Client{httpClient}},
 	{"Kali", kali.Client{httpClient}},
 	{"MacPorts", macports.Client{httpClient}},
 	{"Nixpkgs", nixpkgs.Client{httpClient}},
