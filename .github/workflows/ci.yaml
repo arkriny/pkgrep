@@ -19,3 +19,16 @@ jobs:
           go-version-file: go.mod
       - name: Build
         run: go build
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+      - name: Build
+        run: go test
