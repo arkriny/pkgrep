@@ -15,6 +15,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/archlinux"
 	"github.com/arkriny/pkgrep/internal/aur"
 	"github.com/arkriny/pkgrep/internal/chocolatey"
+	"github.com/arkriny/pkgrep/internal/cran"
 	"github.com/arkriny/pkgrep/internal/cratesio"
 	"github.com/arkriny/pkgrep/internal/debian"
 	"github.com/arkriny/pkgrep/internal/fedora"
@@ -60,6 +61,7 @@ var repos = []Repository{
 	{"Arch", archlinux.Client{httpClient}},
 	{"AUR", aur.Client{httpClient}},
 	{"Chocolatey", chocolatey.Client{httpClient}},
+	{"CRAN", cran.Client{httpClient}},
 	{"crates.io", cratesio.Client{httpClient}},
 	{"Debian", debian.Client{httpClient}},
 	{"Fedora", fedora.Client{httpClient}},
