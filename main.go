@@ -26,6 +26,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/homebrew"
 	"github.com/arkriny/pkgrep/internal/julia"
 	"github.com/arkriny/pkgrep/internal/kali"
+	"github.com/arkriny/pkgrep/internal/luarocks"
 	"github.com/arkriny/pkgrep/internal/macports"
 	"github.com/arkriny/pkgrep/internal/melpa"
 	"github.com/arkriny/pkgrep/internal/nixpkgs"
@@ -81,6 +82,7 @@ var repos = []Repository{
 	{"Homebrew", homebrew.Client{httpClient}},
 	{"Julia", julia.Client{httpClient}},
 	{"Kali", kali.Client{httpClient}},
+	{"LuaRocks", luarocks.Client{httpClient}},
 	{"MacPorts", macports.Client{httpClient}},
 	{"MELPA", melpa.Client{httpClient}},
 	{"Nixpkgs", nixpkgs.Client{httpClient}},

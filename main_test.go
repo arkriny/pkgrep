@@ -23,6 +23,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/homebrew"
 	"github.com/arkriny/pkgrep/internal/julia"
 	"github.com/arkriny/pkgrep/internal/kali"
+	"github.com/arkriny/pkgrep/internal/luarocks"
 	"github.com/arkriny/pkgrep/internal/macports"
 	"github.com/arkriny/pkgrep/internal/melpa"
 	"github.com/arkriny/pkgrep/internal/nixpkgs"
@@ -73,6 +74,7 @@ var tests = []testcase{
 	{"Homebrew", homebrew.Client{testHTTPClient}, "go"},
 	{"Julia", julia.Client{testHTTPClient}, "plots"},
 	{"Kali", kali.Client{testHTTPClient}, "linux"},
+	{"LuaRocks", luarocks.Client{testHTTPClient}, "lua-cjson"},
 	{"MacPorts", macports.Client{testHTTPClient}, "go"},
 	{"MELPA", melpa.Client{testHTTPClient}, "magit"},
 	{"Nixpkgs", nixpkgs.Client{testHTTPClient}, "home-manager"},

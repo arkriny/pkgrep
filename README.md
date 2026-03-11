@@ -19,6 +19,7 @@ Supported package repositories:
 - [Homebrew](https://brew.sh/)
 - [Julia](https://juliapackages.com/)
 - [Kali](https://pkg.kali.org/)
+- [LuaRocks](https://luarocks.org/)
 - [MacPorts](https://ports.macports.org/)
 - [MELPA](https://melpa.org/)
 - [Nixpkgs](https://search.nixos.org/packages)
