@@ -20,6 +20,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/fedora"
 	"github.com/arkriny/pkgrep/internal/guix"
 	"github.com/arkriny/pkgrep/internal/hackage"
+	"github.com/arkriny/pkgrep/internal/hex"
 	"github.com/arkriny/pkgrep/internal/homebrew"
 	"github.com/arkriny/pkgrep/internal/kali"
 	"github.com/arkriny/pkgrep/internal/macports"
@@ -64,6 +65,7 @@ var repos = []Repository{
 	{"Fedora", fedora.Client{httpClient}},
 	{"Guix", guix.Client{httpClient}},
 	{"Hackage", hackage.Client{httpClient}},
+	{"Hex", hex.Client{httpClient}},
 	{"Homebrew", homebrew.Client{httpClient}},
 	{"Kali", kali.Client{httpClient}},
 	{"MacPorts", macports.Client{httpClient}},
