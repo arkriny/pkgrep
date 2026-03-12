@@ -109,25 +109,27 @@ type Result struct {
 	Found bool
 }
 
-type include []string
+type repoList []string
 
-func (i *include) String() string {
-	return fmt.Sprint(*i)
+func (rl *repoList) String() string {
+	return fmt.Sprint(*rl)
 }
 
-func (i *include) Set(value string) error {
+func (rl *repoList) Set(value string) error {
 	for _, p := range strings.Split(value, ",") {
-		*i = append(*i, strings.ToLower(p))
+		*rl = append(*rl, strings.ToLower(p))
 	}
 	return nil
 }
 
 var flagDryRun = flag.Bool("dry-run", false, "do everything except actually send the requests")
 var flagList = flag.Bool("list", false, "list repositories")
-var flagInclude include
+var flagInclude repoList
+var flagExclude repoList
 
 func init() {
 	flag.Var(&flagInclude, "include", "search in specified repositories only")
+	flag.Var(&flagExclude, "exclude", "skip specified repositories")
 }
 
 func main() {
@@ -159,11 +161,10 @@ func main() {
 	results := make(chan Result)
 
 	for _, repo := range repos {
-		if len(flagInclude) > 0 {
-			nameLower := strings.ToLower(repo.Name)
-			if !slices.Contains(flagInclude, nameLower) {
-				continue
-			}
+		nameLower := strings.ToLower(repo.Name)
+		if slices.Contains(flagExclude, nameLower) ||
+			(len(flagInclude) > 0 && !slices.Contains(flagInclude, nameLower)) {
+			continue
 		}
 		wg.Add(1)
 		go func(r Repository) {
