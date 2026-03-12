@@ -12,6 +12,9 @@ type Client struct {
 }
 
 func (c Client) Query(query string) (bool, error) {
+	if len(query) < 2 {
+		return false, nil
+	}
 	url := fmt.Sprintf("https://api.github.com/repos/NixOS/nixpkgs/contents/pkgs/by-name/%s/%s", query[:2], query)
 	return httputil.GetCheckOK(c.HTTPClient, url)
 }
