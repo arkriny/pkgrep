@@ -122,6 +122,7 @@ func (i *include) Set(value string) error {
 	return nil
 }
 
+var flagDryRun = flag.Bool("dry-run", false, "do everything except actually send the requests")
 var flagInclude include
 
 func init() {
@@ -160,10 +161,14 @@ func main() {
 		go func(r Repository) {
 			defer wg.Done()
 
-			found, err := r.Querier.Query(query)
-			if err != nil {
-				log.Println(err)
-				return
+			found := false
+			if !*flagDryRun {
+				var err error
+				found, err = r.Querier.Query(query)
+				if err != nil {
+					log.Println(err)
+					return
+				}
 			}
 
 			results <- Result{
