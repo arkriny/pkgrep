@@ -123,6 +123,7 @@ func (i *include) Set(value string) error {
 }
 
 var flagDryRun = flag.Bool("dry-run", false, "do everything except actually send the requests")
+var flagList = flag.Bool("list", false, "list repositories")
 var flagInclude include
 
 func init() {
@@ -138,6 +139,13 @@ func main() {
 	}
 
 	flag.Parse()
+
+	if *flagList {
+		for _, repo := range repos {
+			fmt.Println(repo.Name)
+		}
+		os.Exit(0)
+	}
 
 	if flag.NArg() != 1 {
 		flag.Usage()
