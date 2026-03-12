@@ -1,4 +1,4 @@
-package melpa 
+package melpa
 
 import (
 	"fmt"

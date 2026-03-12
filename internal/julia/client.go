@@ -1,4 +1,4 @@
-package julia 
+package julia
 
 import (
 	"fmt"

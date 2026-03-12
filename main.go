@@ -122,10 +122,10 @@ func (i *include) Set(value string) error {
 	return nil
 }
 
-var includeFlag include
+var flagInclude include
 
 func init() {
-	flag.Var(&includeFlag, "include", "search in specified repositories only")
+	flag.Var(&flagInclude, "include", "search in specified repositories only")
 }
 
 func main() {
@@ -150,9 +150,9 @@ func main() {
 	results := make(chan Result)
 
 	for _, repo := range repos {
-		if len(includeFlag) > 0 {
+		if len(flagInclude) > 0 {
 			nameLower := strings.ToLower(repo.Name)
-			if !slices.Contains(includeFlag, nameLower) {
+			if !slices.Contains(flagInclude, nameLower) {
 				continue
 			}
 		}

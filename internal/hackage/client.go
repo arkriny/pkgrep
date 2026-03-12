@@ -1,4 +1,4 @@
-package hackage 
+package hackage
 
 import (
 	"fmt"

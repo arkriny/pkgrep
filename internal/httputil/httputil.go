@@ -35,9 +35,5 @@ func GetBodyContains(client *http.Client, url, substr string) (bool, error) {
 			return true, nil
 		}
 	}
-	if err := scanner.Err(); err != nil {
-		return false, err
-	}
-
-	return false, nil
+	return false, scanner.Err()
 }
