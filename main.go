@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"net/url"
 	"os"
 	"slices"
 	"strings"
 	"sync"
 	"time"
+	"unicode"
 
 	"github.com/arkriny/pkgrep/internal/alpine"
 	"github.com/arkriny/pkgrep/internal/aosc"
@@ -50,7 +50,6 @@ import (
 type Querier interface {
 	// Query accepts a search query string and returns a
 	// boolean indicating whether the package was found, or an error.
-	// The query string should be URL-safe.
 	Query(query string) (bool, error)
 }
 
@@ -109,6 +108,16 @@ type Result struct {
 	Found bool
 }
 
+// safeURLSegment checks whether a string can be safely placed in URL segment.
+func safeURLSegment(q string) error {
+	for _, r := range q {
+		if !unicode.IsLetter(r) && !unicode.IsDigit(r) && r != '-' && r != '.' && r != '_' && r != '~' {
+			return fmt.Errorf("disallowed character %q", r)
+		}
+	}
+	return nil
+}
+
 type repoList []string
 
 func (rl *repoList) String() string {
@@ -155,7 +164,10 @@ func main() {
 	}
 
 	query := flag.Arg(0)
-	query = url.QueryEscape(query)
+	err := safeURLSegment(query)
+	if err != nil {
+		log.Fatal("invalid query: ", err)
+	}
 
 	var wg sync.WaitGroup
 	results := make(chan Result)
