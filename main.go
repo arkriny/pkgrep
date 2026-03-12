@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"slices"
+	"strings"
 	"sync"
 	"time"
 
@@ -107,6 +109,25 @@ type Result struct {
 	Found bool
 }
 
+type include []string
+
+func (i *include) String() string {
+	return fmt.Sprint(*i)
+}
+
+func (i *include) Set(value string) error {
+	for _, p := range strings.Split(value, ",") {
+		*i = append(*i, strings.ToLower(p))
+	}
+	return nil
+}
+
+var includeFlag include
+
+func init() {
+	flag.Var(&includeFlag, "include", "search in specified repositories only")
+}
+
 func main() {
 	log.SetPrefix("pkgrep: ")
 	log.SetFlags(0)
@@ -129,6 +150,12 @@ func main() {
 	results := make(chan Result)
 
 	for _, repo := range repos {
+		if len(includeFlag) > 0 {
+			nameLower := strings.ToLower(repo.Name)
+			if !slices.Contains(includeFlag, nameLower) {
+				continue
+			}
+		}
 		wg.Add(1)
 		go func(r Repository) {
 			defer wg.Done()
