@@ -10,7 +10,6 @@ import (
 	"strings"
 	"sync"
 	"time"
-	"unicode"
 
 	"github.com/arkriny/pkgrep/internal/alpine"
 	"github.com/arkriny/pkgrep/internal/aosc"
@@ -103,21 +102,6 @@ var repos = []Repository{
 	{"Void", voidlinux.Client{httpClient}},
 }
 
-type Result struct {
-	Name  string
-	Found bool
-}
-
-// safeURLSegment checks whether a string can be safely placed in URL segment.
-func safeURLSegment(q string) error {
-	for _, r := range q {
-		if !unicode.IsLetter(r) && !unicode.IsDigit(r) && r != '-' && r != '.' && r != '_' && r != '~' {
-			return fmt.Errorf("disallowed character %q", r)
-		}
-	}
-	return nil
-}
-
 type repoList []string
 
 func (rl *repoList) String() string {
@@ -139,6 +123,14 @@ var flagExclude repoList
 func init() {
 	flag.Var(&flagInclude, "include", "search in specified repositories only")
 	flag.Var(&flagExclude, "exclude", "skip specified repositories")
+}
+
+// Checks if repository name is explicitly excluded or not included via flags.
+func shouldSkipRepository(repoName string) bool {
+	nameLower := strings.ToLower(repoName)
+	excluded := slices.Contains(flagExclude, nameLower)
+	included := len(flagInclude) > 0 && slices.Contains(flagInclude, nameLower)
+	return excluded || !included
 }
 
 func main() {
@@ -169,13 +161,15 @@ func main() {
 		log.Fatal("invalid query: ", err)
 	}
 
-	var wg sync.WaitGroup
+	type Result struct {
+		Name  string
+		Found bool
+	}
 	results := make(chan Result)
 
+	var wg sync.WaitGroup
 	for _, repo := range repos {
-		nameLower := strings.ToLower(repo.Name)
-		if slices.Contains(flagExclude, nameLower) ||
-			(len(flagInclude) > 0 && !slices.Contains(flagInclude, nameLower)) {
+		if shouldSkipRepository(repo.Name) {
 			continue
 		}
 		wg.Add(1)
