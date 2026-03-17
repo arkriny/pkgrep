@@ -151,6 +151,7 @@ func main() {
 	}
 
 	if flag.NArg() != 1 {
+		log.Print("missing query")
 		flag.Usage()
 		os.Exit(2)
 	}
