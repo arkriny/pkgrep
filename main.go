@@ -125,7 +125,7 @@ func (rl *repoList) String() string {
 }
 
 func (rl *repoList) Set(value string) error {
-	for _, p := range strings.Split(value, ",") {
+	for p := range strings.SplitSeq(value, ",") {
 		*rl = append(*rl, strings.ToLower(p))
 	}
 	return nil
