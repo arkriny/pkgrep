@@ -129,7 +129,7 @@ func init() {
 func shouldSkipRepository(repoName string) bool {
 	nameLower := strings.ToLower(repoName)
 	excluded := slices.Contains(flagExclude, nameLower)
-	included := len(flagInclude) > 0 && slices.Contains(flagInclude, nameLower)
+	included := len(flagInclude) == 0 || slices.Contains(flagInclude, nameLower)
 	return excluded || !included
 }
 
