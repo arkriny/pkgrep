@@ -11,6 +11,10 @@ type Client struct {
 	HTTPClient *http.Client
 }
 
+func (c Client) Name() string {
+	return "RubyGems"
+}
+
 func (c Client) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://rubygems.org/api/v1/gems/%s.json", query)
 	return httputil.GetCheckOK(c.HTTPClient, url)

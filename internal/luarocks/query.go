@@ -11,6 +11,10 @@ type Client struct {
 	HTTPClient *http.Client
 }
 
+func (c Client) Name() string {
+	return "LuaRocks"
+}
+
 func (c Client) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://luarocks.org/search?q=%s", query)
 	resp, err := c.HTTPClient.Get(url)

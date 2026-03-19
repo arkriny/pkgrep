@@ -11,6 +11,10 @@ type Client struct {
 	HTTPClient *http.Client
 }
 
+func (c Client) Name() string {
+	return "Scoop"
+}
+
 func (c Client) Query(query string) (bool, error) {
 	// Try Main repository
 	url := fmt.Sprintf("https://api.github.com/repos/ScoopInstaller/Main/contents/bucket/%s.json", query)

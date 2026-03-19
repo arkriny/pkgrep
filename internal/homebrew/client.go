@@ -11,6 +11,10 @@ type Client struct {
 	HTTPClient *http.Client
 }
 
+func (c Client) Name() string {
+	return "Homebrew"
+}
+
 func (c Client) Query(query string) (bool, error) {
 	// Try formula
 	url := fmt.Sprintf("https://formulae.brew.sh/api/formula/%s.json", query)

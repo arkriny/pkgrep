@@ -10,6 +10,10 @@ type Client struct {
 	HTTPClient *http.Client
 }
 
+func (c Client) Name() string {
+	return "Arch"
+}
+
 type responseBody struct {
 	Results []json.RawMessage `json:"results"`
 }

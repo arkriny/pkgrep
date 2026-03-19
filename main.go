@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"runtime/debug"
 	"slices"
 	"strings"
 	"sync"
@@ -50,11 +51,9 @@ type Querier interface {
 	// Query accepts a search query string and returns a
 	// boolean indicating whether the package was found, or an error.
 	Query(query string) (bool, error)
-}
 
-type Repository struct {
-	Name    string
-	Querier Querier
+	// Name returns the name of the querier, usually a repository name.
+	Name() string
 }
 
 var httpClient = &http.Client{
@@ -66,40 +65,40 @@ var httpClient = &http.Client{
 	Timeout: 20 * time.Second,
 }
 
-var repos = []Repository{
-	{"Alpine", alpine.Client{httpClient}},
-	{"AOSC", aosc.Client{httpClient}},
-	{"Arch", archlinux.Client{httpClient}},
-	{"AUR", aur.Client{httpClient}},
-	{"Chocolatey", chocolatey.Client{httpClient}},
-	{"CRAN", cran.Client{httpClient}},
-	{"crates.io", cratesio.Client{httpClient}},
-	{"Debian", debian.Client{httpClient}},
-	{"DUB", dub.Client{httpClient}},
-	{"Fedora", fedora.Client{httpClient}},
-	{"Guix", guix.Client{httpClient}},
-	{"Hackage", hackage.Client{httpClient}},
-	{"Hex", hex.Client{httpClient}},
-	{"Homebrew", homebrew.Client{httpClient}},
-	{"Julia", julia.Client{httpClient}},
-	{"Kali", kali.Client{httpClient}},
-	{"LuaRocks", luarocks.Client{httpClient}},
-	{"MacPorts", macports.Client{httpClient}},
-	{"MELPA", melpa.Client{httpClient}},
-	{"Nixpkgs", nixpkgs.Client{httpClient}},
-	{"NPM", npm.Client{httpClient}},
-	{"NuGet", nuget.Client{httpClient}},
-	{"opam", opam.Client{httpClient}},
-	{"openSUSE", opensuse.Client{httpClient}},
-	{"pkg.go.dev", pkggodev.Client{httpClient}},
-	{"pub.dev", pubdev.Client{httpClient}},
-	{"PyPI", pypi.Client{httpClient}},
-	{"RubyGems", rubygems.Client{httpClient}},
-	{"Scoop", scoop.Client{httpClient}},
-	{"Sisyphus", sisyphus.Client{httpClient}},
-	{"Snapcraft", snapcraft.Client{httpClient}},
-	{"Ubuntu", ubuntu.Client{httpClient}},
-	{"Void", voidlinux.Client{httpClient}},
+var queiers = []Querier{
+	alpine.Client{httpClient},
+	aosc.Client{httpClient},
+	archlinux.Client{httpClient},
+	aur.Client{httpClient},
+	chocolatey.Client{httpClient},
+	cran.Client{httpClient},
+	cratesio.Client{httpClient},
+	debian.Client{httpClient},
+	dub.Client{httpClient},
+	fedora.Client{httpClient},
+	guix.Client{httpClient},
+	hackage.Client{httpClient},
+	hex.Client{httpClient},
+	homebrew.Client{httpClient},
+	julia.Client{httpClient},
+	kali.Client{httpClient},
+	luarocks.Client{httpClient},
+	macports.Client{httpClient},
+	melpa.Client{httpClient},
+	nixpkgs.Client{httpClient},
+	npm.Client{httpClient},
+	nuget.Client{httpClient},
+	opam.Client{httpClient},
+	opensuse.Client{httpClient},
+	pkggodev.Client{httpClient},
+	pubdev.Client{httpClient},
+	pypi.Client{httpClient},
+	rubygems.Client{httpClient},
+	scoop.Client{httpClient},
+	sisyphus.Client{httpClient},
+	snapcraft.Client{httpClient},
+	ubuntu.Client{httpClient},
+	voidlinux.Client{httpClient},
 }
 
 type repoList []string
@@ -117,6 +116,7 @@ func (rl *repoList) Set(value string) error {
 
 var flagDryRun = flag.Bool("dry-run", false, "do everything except actually send the requests")
 var flagList = flag.Bool("list", false, "list repositories")
+var flagVersion = flag.Bool("version", false, "print version")
 var flagInclude repoList
 var flagExclude repoList
 
@@ -143,9 +143,18 @@ func main() {
 
 	flag.Parse()
 
+	if *flagVersion {
+		if build, ok := debug.ReadBuildInfo(); ok {
+			fmt.Println(build.Main.Version)
+		} else {
+			fmt.Println("unknown version")
+		}
+		return
+	}
+
 	if *flagList {
-		for _, repo := range repos {
-			fmt.Println(repo.Name)
+		for _, querier := range queiers {
+			fmt.Println(querier.Name())
 		}
 		os.Exit(0)
 	}
@@ -169,18 +178,18 @@ func main() {
 	results := make(chan Result)
 
 	var wg sync.WaitGroup
-	for _, repo := range repos {
-		if shouldSkipRepository(repo.Name) {
+	for _, querier := range queiers {
+		if shouldSkipRepository(querier.Name()) {
 			continue
 		}
 		wg.Add(1)
-		go func(r Repository) {
+		go func(q Querier) {
 			defer wg.Done()
 
 			found := false
 			if !*flagDryRun {
 				var err error
-				found, err = r.Querier.Query(query)
+				found, err = q.Query(query)
 				if err != nil {
 					log.Println(err)
 					return
@@ -188,10 +197,10 @@ func main() {
 			}
 
 			results <- Result{
-				Name:  r.Name,
+				Name:  q.Name(),
 				Found: found,
 			}
-		}(repo)
+		}(querier)
 	}
 
 	go func() {

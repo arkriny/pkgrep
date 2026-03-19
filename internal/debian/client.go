@@ -10,6 +10,10 @@ type Client struct {
 	HTTPClient *http.Client
 }
 
+func (c Client) Name() string {
+	return "Debian"
+}
+
 type responseBody struct {
 	Error *json.RawMessage `json:"error"`
 }

@@ -10,6 +10,10 @@ type Client struct {
 	HTTPClient *http.Client
 }
 
+func (c Client) Name() string {
+	return "AUR"
+}
+
 type responseBody struct {
 	ResultCount int `json:"resultcount"`
 }

@@ -43,7 +43,6 @@ import (
 )
 
 type testcase struct {
-	name    string
 	querier Querier
 	pkg     string
 }
@@ -59,39 +58,39 @@ var testHTTPClient = &http.Client{
 }
 
 var tests = []testcase{
-	{"Alpine", alpine.Client{testHTTPClient}, "alpine-base"},
-	{"AOSC", aosc.Client{testHTTPClient}, "kernel-base"},
-	{"Arch", archlinux.Client{testHTTPClient}, "linux"},
-	{"AUR", aur.Client{testHTTPClient}, "google-chrome"},
-	{"Chocolatey", chocolatey.Client{testHTTPClient}, "go"},
-	{"CRAN", cran.Client{testHTTPClient}, "ggplot2"},
-	{"crates.io", cratesio.Client{testHTTPClient}, "syn"},
-	{"Debian", debian.Client{testHTTPClient}, "linux-base"},
-	{"DUB", dub.Client{testHTTPClient}, "vibe-d"},
-	{"Fedora", fedora.Client{testHTTPClient}, "linux-firmware"},
-	{"Guix", guix.Client{testHTTPClient}, "go"},
-	{"Hackage", hackage.Client{testHTTPClient}, "ghc"},
-	{"Hex", hexclient.Client{testHTTPClient}, "phoenix"},
-	{"Homebrew", homebrew.Client{testHTTPClient}, "go"},
-	{"Julia", julia.Client{testHTTPClient}, "plots"},
-	{"Kali", kali.Client{testHTTPClient}, "linux"},
-	{"LuaRocks", luarocks.Client{testHTTPClient}, "lua-cjson"},
-	{"MacPorts", macports.Client{testHTTPClient}, "go"},
-	{"MELPA", melpa.Client{testHTTPClient}, "magit"},
-	{"Nixpkgs", nixpkgs.Client{testHTTPClient}, "home-manager"},
-	{"NPM", npm.Client{testHTTPClient}, "npm"},
-	{"NuGet", nuget.Client{testHTTPClient}, "Azure.Core"},
-	{"opam", opam.Client{testHTTPClient}, "ocaml"},
-	{"openSUSE", opensuse.Client{testHTTPClient}, "linux-firmware"},
-	{"pkg.go.dev", pkggodev.Client{testHTTPClient}, "http"},
-	{"pub.dev", pubdev.Client{testHTTPClient}, "http"},
-	{"PyPI", pypi.Client{testHTTPClient}, "pip"},
-	{"RubyGems", rubygems.Client{testHTTPClient}, "rails"},
-	{"Scoop", scoop.Client{testHTTPClient}, "go"},
-	{"Sisyphus", sisyphus.Client{testHTTPClient}, "firmware-linux"},
-	{"Snapcraft", snapcraft.Client{testHTTPClient}, "go"},
-	{"Ubuntu", ubuntu.Client{testHTTPClient}, "linux-firmware"},
-	{"Void", voidlinux.Client{testHTTPClient}, "linux-firmware"},
+	{alpine.Client{testHTTPClient}, "alpine-base"},
+	{aosc.Client{testHTTPClient}, "kernel-base"},
+	{archlinux.Client{testHTTPClient}, "linux"},
+	{aur.Client{testHTTPClient}, "google-chrome"},
+	{chocolatey.Client{testHTTPClient}, "go"},
+	{cran.Client{testHTTPClient}, "ggplot2"},
+	{cratesio.Client{testHTTPClient}, "syn"},
+	{debian.Client{testHTTPClient}, "linux-base"},
+	{dub.Client{testHTTPClient}, "vibe-d"},
+	{fedora.Client{testHTTPClient}, "linux-firmware"},
+	{guix.Client{testHTTPClient}, "go"},
+	{hackage.Client{testHTTPClient}, "ghc"},
+	{hexclient.Client{testHTTPClient}, "phoenix"},
+	{homebrew.Client{testHTTPClient}, "go"},
+	{julia.Client{testHTTPClient}, "plots"},
+	{kali.Client{testHTTPClient}, "linux"},
+	{luarocks.Client{testHTTPClient}, "lua-cjson"},
+	{macports.Client{testHTTPClient}, "go"},
+	{melpa.Client{testHTTPClient}, "magit"},
+	{nixpkgs.Client{testHTTPClient}, "home-manager"},
+	{npm.Client{testHTTPClient}, "npm"},
+	{nuget.Client{testHTTPClient}, "Azure.Core"},
+	{opam.Client{testHTTPClient}, "ocaml"},
+	{opensuse.Client{testHTTPClient}, "linux-firmware"},
+	{pkggodev.Client{testHTTPClient}, "http"},
+	{pubdev.Client{testHTTPClient}, "http"},
+	{pypi.Client{testHTTPClient}, "pip"},
+	{rubygems.Client{testHTTPClient}, "rails"},
+	{scoop.Client{testHTTPClient}, "go"},
+	{sisyphus.Client{testHTTPClient}, "firmware-linux"},
+	{snapcraft.Client{testHTTPClient}, "go"},
+	{ubuntu.Client{testHTTPClient}, "linux-firmware"},
+	{voidlinux.Client{testHTTPClient}, "linux-firmware"},
 }
 
 func Test(t *testing.T) {
@@ -102,27 +101,28 @@ func Test(t *testing.T) {
 	randomPackage := hex.EncodeToString(b)
 
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+		name := tt.querier.Name()
+		t.Run(name, func(t *testing.T) {
 			t.Parallel()
 
 			{
 				found, err := tt.querier.Query(tt.pkg)
 				if err != nil {
-					t.Fatalf("%s: %v", tt.name, err)
+					t.Fatalf("%s: %v", name, err)
 				}
 
 				if !found {
-					t.Errorf("%s: %s not found", tt.name, tt.pkg)
+					t.Errorf("%s: %s not found", name, tt.pkg)
 				}
 			}
 			{
 				found, err := tt.querier.Query(randomPackage)
 				if err != nil {
-					t.Fatalf("%s: %v", tt.name, err)
+					t.Fatalf("%s: %v", name, err)
 				}
 
 				if found {
-					t.Errorf("%s: %s found", tt.name, randomPackage)
+					t.Errorf("%s: %s found", name, randomPackage)
 				}
 			}
 		})

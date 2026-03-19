@@ -11,6 +11,10 @@ type Client struct {
 	HTTPClient *http.Client
 }
 
+func (c Client) Name() string {
+	return "Nixpkgs"
+}
+
 func (c Client) Query(query string) (bool, error) {
 	if len(query) < 2 {
 		return false, nil
