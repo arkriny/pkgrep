@@ -1,5 +1,12 @@
 Pkgrep queries multiple package repositories by package name.
 
+Usage:
+
+    go install github.com/arkriny/pkgrep@latest
+
+    pkgrep [-dry-run] [-include REPO[,REPO...]] [-exclude REPO[,REPO...]] QUERY
+    pkgrep -list
+
 Supported package repositories:
 
 - [Alpine Linux](https://pkgs.alpinelinux.org/packages/)
