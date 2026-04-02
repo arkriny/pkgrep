@@ -15,6 +15,7 @@ Supported package repositories:
 - [Arch Linux](https://archlinux.org/packages/)
 - [AUR](https://aur.archlinux.org/)
 - [Chocolatey](https://chocolatey.org/)
+- [Clojars](https://clojars.org/)
 - [CRAN](https://cran.r-project.org/)
 - [crates.io](https://crates.io/)
 - [Debian](https://www.debian.org/distrib/packages)

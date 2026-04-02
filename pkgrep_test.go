@@ -12,6 +12,7 @@ import (
 	"github.com/arkriny/pkgrep/internal/archlinux"
 	"github.com/arkriny/pkgrep/internal/aur"
 	"github.com/arkriny/pkgrep/internal/chocolatey"
+	"github.com/arkriny/pkgrep/internal/clojars"
 	"github.com/arkriny/pkgrep/internal/cran"
 	"github.com/arkriny/pkgrep/internal/cratesio"
 	"github.com/arkriny/pkgrep/internal/debian"
@@ -63,6 +64,7 @@ var tests = []testcase{
 	{archlinux.Client{testHTTPClient}, "linux"},
 	{aur.Client{testHTTPClient}, "google-chrome"},
 	{chocolatey.Client{testHTTPClient}, "go"},
+	{clojars.Client{testHTTPClient}, "core.typed"},
 	{cran.Client{testHTTPClient}, "ggplot2"},
 	{cratesio.Client{testHTTPClient}, "syn"},
 	{debian.Client{testHTTPClient}, "linux-base"},
