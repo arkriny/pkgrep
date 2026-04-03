@@ -74,6 +74,7 @@ var (
 	flagDryRun  = flag.Bool("dry-run", false, "do everything except actually send the requests")
 	flagList    = flag.Bool("list", false, "list repositories")
 	flagVersion = flag.Bool("version", false, "print version")
+	flagTimeout = flag.Int64("timeout", 0, "time limit for a single request in seconds")
 	flagInclude repoList
 	flagExclude repoList
 )
@@ -103,9 +104,9 @@ func main() {
 			RoundTripper: http.DefaultTransport,
 			UserAgent:    "pkgrep/0 (https://github.com/arkriny/pkgrep; mailto:arkriny@gmail.com)",
 		},
-		// TODO: make timeout configurable
-		Timeout: 20 * time.Second,
+		Timeout: time.Duration(*flagTimeout) * time.Second,
 	}
+
 	queriers := []Querier{
 		alpine.Client{httpClient},
 		aosc.Client{httpClient},
