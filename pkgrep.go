@@ -36,7 +36,6 @@ import (
 	"github.com/arkriny/pkgrep/internal/npm"
 	"github.com/arkriny/pkgrep/internal/nuget"
 	"github.com/arkriny/pkgrep/internal/opam"
-	"github.com/arkriny/pkgrep/internal/opensuse"
 	"github.com/arkriny/pkgrep/internal/pkggodev"
 	"github.com/arkriny/pkgrep/internal/pubdev"
 	"github.com/arkriny/pkgrep/internal/pypi"
@@ -132,7 +131,6 @@ func main() {
 		npm.Client{httpClient},
 		nuget.Client{httpClient},
 		opam.Client{httpClient},
-		opensuse.Client{httpClient},
 		pkggodev.Client{httpClient},
 		pubdev.Client{httpClient},
 		pypi.Client{httpClient},
