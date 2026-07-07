@@ -84,7 +84,7 @@ func init() {
 }
 
 func main() {
-	log.SetPrefix("pkgrep: ")
+	log.SetPrefix(os.Args[0] + ": ")
 	log.SetFlags(0)
 	flag.Usage = usage
 	flag.Parse()
