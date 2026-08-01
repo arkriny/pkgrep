@@ -1,5 +1,7 @@
 Pkgrep queries multiple package repositories by package name.
 
+This is free software released into the public domain.
+
 Usage:
 
     go install github.com/arkriny/pkgrep@latest
