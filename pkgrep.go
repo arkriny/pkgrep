@@ -10,7 +10,9 @@ import (
 	"runtime/debug"
 	"slices"
 	"strings"
+	"sync"
 	"time"
+	"unicode"
 
 	"github.com/arkriny/pkgrep/client"
 )
@@ -49,6 +51,12 @@ var (
 func init() {
 	flag.Var(&flagInclude, "include", "search in specified repositories only")
 	flag.Var(&flagExclude, "exclude", "skip specified repositories")
+}
+
+func usage() {
+	fmt.Fprintf(flag.CommandLine.Output(), "Usage: %s QUERY\n", os.Args[0])
+	flag.PrintDefaults()
+	os.Exit(2)
 }
 
 func main() {
@@ -114,7 +122,7 @@ func main() {
 		for _, querier := range queriers {
 			fmt.Println(querier.Name())
 		}
-		os.Exit(0)
+		return
 	}
 	if flag.NArg() != 1 {
 		log.Print("missing query")
@@ -128,16 +136,77 @@ func main() {
 	}
 }
 
-func usage() {
-	fmt.Fprintf(flag.CommandLine.Output(), "Usage: %s QUERY\n", os.Args[0])
-	flag.PrintDefaults()
-	os.Exit(2)
+func runQuery(queriers []Querier, query string) bool {
+	if err := safeURLSegment(query); err != nil {
+		log.Fatal("invalid query: ", err)
+	}
+
+	type Result struct {
+		Name  string
+		Found bool
+	}
+	results := make(chan Result)
+	var wg sync.WaitGroup
+	for _, q := range queriers {
+		if shouldSkipRepository(q.Name()) {
+			continue
+		}
+		wg.Add(1)
+		go func(q Querier) {
+			defer wg.Done()
+
+			found := false
+			if !*flagDryRun {
+				var err error
+				found, err = q.Query(query)
+				if err != nil {
+					log.Println(err)
+					return
+				}
+			}
+			results <- Result{
+				Name:  q.Name(),
+				Found: found,
+			}
+		}(q)
+	}
+
+	go func() {
+		wg.Wait()
+		close(results)
+	}()
+
+	foundAny := false
+	for result := range results {
+		if result.Found {
+			fmt.Printf("*")
+			foundAny = true
+		} else {
+			fmt.Print("-")
+		}
+		fmt.Printf(" %s\n", result.Name)
+	}
+	return foundAny
 }
 
-// Checks if repository name is explicitly excluded or not included via flags.
 func shouldSkipRepository(name string) bool {
 	nameLower := strings.ToLower(name)
 	excluded := slices.Contains(flagExclude, nameLower)
 	included := len(flagInclude) == 0 || slices.Contains(flagInclude, nameLower)
 	return excluded || !included
+}
+
+// safeURLSegment checks whether a string can be safely placed in URL segment.
+func safeURLSegment(s string) error {
+	for _, r := range s {
+		if !unicode.IsLetter(r) &&
+			!unicode.IsDigit(r) &&
+			r != '-' &&
+			r != '.' &&
+			r != '_' &&
+			r != '~' {
+			return fmt.Errorf("disallowed character in URL %q", r)
+		}
+	}
+	return nil
 }
