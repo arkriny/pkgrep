@@ -15,12 +15,12 @@ type testcase struct {
 	pkg     string
 }
 
-var testUserAgent = "pkgrep-test/0 (https://github.com/arkriny/pkgrep; mailto:arkriny@gmail.com)"
+var testUserAgent = "pkgrep-test"
 
 var testHTTPClient = &http.Client{
 	Transport: &UserAgentRoundTripper{
 		RoundTripper: http.DefaultTransport,
-		UserAgent:    testUserAgent,
+		UserAgent:    testUserAgent + "/0 " + UserAgentInfo,
 	},
 	Timeout: time.Minute,
 }

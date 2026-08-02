@@ -17,6 +17,8 @@ import (
 	"github.com/arkriny/pkgrep/client"
 )
 
+const UserAgentInfo = "(https://github.com/arkriny/pkgrep; mailto:arkriny@arkriny.com)"
+
 type Querier interface {
 	// Query accepts a search query string and returns a
 	// boolean indicating whether the package was found, or an error.
@@ -77,7 +79,7 @@ func main() {
 	httpClient := &http.Client{
 		Transport: &UserAgentRoundTripper{
 			RoundTripper: http.DefaultTransport,
-			UserAgent:    "pkgrep/0 (https://github.com/arkriny/pkgrep; mailto:arkriny@gmail.com)",
+			UserAgent:    "pkgrep/0 " + UserAgentInfo,
 		},
 		Timeout: time.Duration(*flagTimeout) * time.Second,
 	}
