@@ -2,6 +2,7 @@ package client
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 )
@@ -21,6 +22,10 @@ func (c Debian) Query(query string) (bool, error) {
 		return false, err
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return false, errors.New(resp.Status)
+	}
 
 	var r struct {
 		Error *json.RawMessage `json:"error"`

@@ -160,7 +160,7 @@ func runQuery(queriers []Querier, query string) bool {
 				var err error
 				found, err = q.Query(query)
 				if err != nil {
-					log.Println(err)
+					log.Printf("query '%s': %s", q.Name(), err)
 					return
 				}
 			}

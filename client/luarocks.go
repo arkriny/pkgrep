@@ -2,6 +2,7 @@ package client
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"net/http"
 	"strings"
@@ -22,6 +23,10 @@ func (c Luarocks) Query(query string) (bool, error) {
 		return false, err
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return false, errors.New(resp.Status)
+	}
 
 	// Response HTML has the following structure:
 	//

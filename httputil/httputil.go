@@ -2,6 +2,7 @@ package httputil
 
 import (
 	"bufio"
+	"errors"
 	"net/http"
 	"strings"
 )
@@ -20,13 +21,17 @@ func GetCheckOK(client *http.Client, url string) (bool, error) {
 }
 
 // GetBodyContains is a helper function that sends request to URL and checks if
-// response body contains specified substr.
+// response status code is 200 (OK) and response body contains specified substr.
 func GetBodyContains(client *http.Client, url, substr string) (bool, error) {
 	resp, err := client.Get(url)
 	if err != nil {
 		return false, err
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return false, errors.New(resp.Status)
+	}
 
 	scanner := bufio.NewScanner(resp.Body)
 	for scanner.Scan() {

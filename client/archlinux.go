@@ -2,6 +2,7 @@ package client
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 )
@@ -25,6 +26,10 @@ func (c Archlinux) Query(query string) (bool, error) {
 		return false, err
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return false, errors.New(resp.Status)
+	}
 
 	var r responseBody
 	err = json.NewDecoder(resp.Body).Decode(&r)
