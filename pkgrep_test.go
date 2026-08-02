@@ -50,6 +50,7 @@ var tests = []testcase{
 	{client.Npm{testHTTPClient}, "npm"},
 	{client.Nuget{testHTTPClient}, "Azure.Core"},
 	{client.Opam{testHTTPClient}, "ocaml"},
+	{client.Openwrt{testHTTPClient}, "opkg"},
 	{client.Pkggodev{testHTTPClient}, "http"},
 	{client.Pubdev{testHTTPClient}, "http"},
 	{client.Pypi{testHTTPClient}, "pip"},

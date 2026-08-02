@@ -107,6 +107,7 @@ func main() {
 		client.Npm{httpClient},
 		client.Nuget{httpClient},
 		client.Opam{httpClient},
+		client.Openwrt{httpClient},
 		client.Pkggodev{httpClient},
 		client.Pubdev{httpClient},
 		client.Pypi{httpClient},

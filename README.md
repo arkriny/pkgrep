@@ -36,6 +36,7 @@ Supported package repositories:
 - [NPM](https://www.npmjs.com)
 - [NuGet](https://www.nuget.org)
 - [opam](https://opam.ocaml.org)
+- [OpenWrt](https://openwrt.org/packages/start)
 - [pkg.go.dev](https://pkg.go.dev)
 - [pub.dev](https://pub.dev)
 - [PyPI](https://pypi.org)
