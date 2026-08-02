@@ -12,39 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/arkriny/pkgrep/internal/alpine"
-	"github.com/arkriny/pkgrep/internal/aosc"
-	"github.com/arkriny/pkgrep/internal/archlinux"
-	"github.com/arkriny/pkgrep/internal/aur"
-	"github.com/arkriny/pkgrep/internal/chocolatey"
-	"github.com/arkriny/pkgrep/internal/clojars"
-	"github.com/arkriny/pkgrep/internal/cran"
-	"github.com/arkriny/pkgrep/internal/cratesio"
-	"github.com/arkriny/pkgrep/internal/debian"
-	"github.com/arkriny/pkgrep/internal/dub"
-	"github.com/arkriny/pkgrep/internal/fedora"
-	"github.com/arkriny/pkgrep/internal/guix"
-	"github.com/arkriny/pkgrep/internal/hackage"
-	"github.com/arkriny/pkgrep/internal/hex"
-	"github.com/arkriny/pkgrep/internal/homebrew"
-	"github.com/arkriny/pkgrep/internal/julia"
-	"github.com/arkriny/pkgrep/internal/kali"
-	"github.com/arkriny/pkgrep/internal/luarocks"
-	"github.com/arkriny/pkgrep/internal/macports"
-	"github.com/arkriny/pkgrep/internal/melpa"
-	"github.com/arkriny/pkgrep/internal/nixpkgs"
-	"github.com/arkriny/pkgrep/internal/npm"
-	"github.com/arkriny/pkgrep/internal/nuget"
-	"github.com/arkriny/pkgrep/internal/opam"
-	"github.com/arkriny/pkgrep/internal/pkggodev"
-	"github.com/arkriny/pkgrep/internal/pubdev"
-	"github.com/arkriny/pkgrep/internal/pypi"
-	"github.com/arkriny/pkgrep/internal/rubygems"
-	"github.com/arkriny/pkgrep/internal/scoop"
-	"github.com/arkriny/pkgrep/internal/sisyphus"
-	"github.com/arkriny/pkgrep/internal/snapcraft"
-	"github.com/arkriny/pkgrep/internal/ubuntu"
-	"github.com/arkriny/pkgrep/internal/voidlinux"
+	"github.com/arkriny/pkgrep/client"
 )
 
 type Querier interface {
@@ -107,39 +75,39 @@ func main() {
 	}
 
 	queriers := []Querier{
-		alpine.Client{httpClient},
-		aosc.Client{httpClient},
-		archlinux.Client{httpClient},
-		aur.Client{httpClient},
-		chocolatey.Client{httpClient},
-		clojars.Client{httpClient},
-		cran.Client{httpClient},
-		cratesio.Client{httpClient},
-		debian.Client{httpClient},
-		dub.Client{httpClient},
-		fedora.Client{httpClient},
-		guix.Client{httpClient},
-		hackage.Client{httpClient},
-		hex.Client{httpClient},
-		homebrew.Client{httpClient},
-		julia.Client{httpClient},
-		kali.Client{httpClient},
-		luarocks.Client{httpClient},
-		macports.Client{httpClient},
-		melpa.Client{httpClient},
-		nixpkgs.Client{httpClient},
-		npm.Client{httpClient},
-		nuget.Client{httpClient},
-		opam.Client{httpClient},
-		pkggodev.Client{httpClient},
-		pubdev.Client{httpClient},
-		pypi.Client{httpClient},
-		rubygems.Client{httpClient},
-		scoop.Client{httpClient},
-		sisyphus.Client{httpClient},
-		snapcraft.Client{httpClient},
-		ubuntu.Client{httpClient},
-		voidlinux.Client{httpClient},
+		client.Alpine{httpClient},
+		client.Aosc{httpClient},
+		client.Archlinux{httpClient},
+		client.Aur{httpClient},
+		client.Chocolatey{httpClient},
+		client.Clojars{httpClient},
+		client.Cran{httpClient},
+		client.Cratesio{httpClient},
+		client.Debian{httpClient},
+		client.Dub{httpClient},
+		client.Fedora{httpClient},
+		client.Guix{httpClient},
+		client.Hackage{httpClient},
+		client.Hex{httpClient},
+		client.Homebrew{httpClient},
+		client.Julia{httpClient},
+		client.Kali{httpClient},
+		client.Luarocks{httpClient},
+		client.Macports{httpClient},
+		client.Melpa{httpClient},
+		client.Nixpkgs{httpClient},
+		client.Npm{httpClient},
+		client.Nuget{httpClient},
+		client.Opam{httpClient},
+		client.Pkggodev{httpClient},
+		client.Pubdev{httpClient},
+		client.Pypi{httpClient},
+		client.Rubygems{httpClient},
+		client.Scoop{httpClient},
+		client.Sisyphus{httpClient},
+		client.Snapcraft{httpClient},
+		client.Ubuntu{httpClient},
+		client.Voidlinux{httpClient},
 	}
 
 	if *flagList {
