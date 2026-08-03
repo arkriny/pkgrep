@@ -2,9 +2,9 @@ package httputil
 
 import (
 	"bufio"
+	"bytes"
 	"errors"
 	"net/http"
-	"strings"
 )
 
 // GetCheckOK is a helper function that sends request to URL and checks if
@@ -34,9 +34,10 @@ func GetBodyContains(client *http.Client, url, substr string) (bool, error) {
 	}
 
 	scanner := bufio.NewScanner(resp.Body)
+	substrBytes := []byte(substr)
 	for scanner.Scan() {
-		line := scanner.Text()
-		if strings.Contains(line, substr) {
+		line := scanner.Bytes()
+		if bytes.Contains(line, substrBytes) {
 			return true, nil
 		}
 	}
