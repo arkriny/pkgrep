@@ -19,7 +19,7 @@ func (c Pkggodev) Name() string {
 func (c Pkggodev) Query(query string) (bool, error) {
 	// filter to prevent matches within paths and descriptions.
 	filter := fmt.Sprintf(`hasSuffix(modulePath, "/%s")`, query)
-	url := fmt.Sprintf("https://pkg.go.dev/v1beta/search?q=%s&filter=%s&limit=1", query, url.QueryEscape(filter))
+	url := fmt.Sprintf("https://pkg.go.dev/v1/search?q=%s&filter=%s&limit=1", query, url.QueryEscape(filter))
 	resp, err := c.HTTPClient.Get(url)
 	if err != nil {
 		return false, err
