@@ -1,11 +1,11 @@
 package client
 
 import (
-	"bufio"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
-	"strings"
+	"net/url"
 )
 
 type Pkggodev struct {
@@ -17,7 +17,9 @@ func (c Pkggodev) Name() string {
 }
 
 func (c Pkggodev) Query(query string) (bool, error) {
-	url := fmt.Sprintf("https://pkg.go.dev/search?q=%s", query)
+	// filter to prevent matches within paths and descriptions.
+	filter := fmt.Sprintf(`hasSuffix(modulePath, "/%s")`, query)
+	url := fmt.Sprintf("https://pkg.go.dev/v1/search?q=%s&filter=%s&limit=1", query, url.QueryEscape(filter))
 	resp, err := c.HTTPClient.Get(url)
 	if err != nil {
 		return false, err
@@ -28,36 +30,14 @@ func (c Pkggodev) Query(query string) (bool, error) {
 		return false, errors.New(resp.Status)
 	}
 
-	scanner := bufio.NewScanner(resp.Body)
-	var buf strings.Builder
-	inAnchor := false
-	for scanner.Scan() {
-		line := scanner.Text()
-		if inAnchor {
-			buf.WriteString(line)
-			if strings.Contains(line, `class="SearchSnippet-header-path"`) {
-				innerText := buf.String()
-
-				if i := strings.Index(innerText, "<span"); i >= 0 {
-					innerText = innerText[:i]
-				}
-
-				start := strings.Index(innerText, ">")
-				if start >= 0 {
-					if strings.TrimSpace(innerText[start+1:]) == query {
-						return true, nil
-					}
-				}
-
-				buf.Reset()
-				inAnchor = false
-			}
-		} else {
-			if strings.Contains(line, `data-gtmc="search result"`) {
-				inAnchor = true
-				buf.WriteString(line)
-			}
-		}
+	var r struct {
+		Total int `json:"total"`
 	}
-	return false, scanner.Err()
+	err = json.NewDecoder(resp.Body).Decode(&r)
+	if err != nil {
+		return false, err
+	}
+
+	ok := r.Total != 0
+	return ok, nil
 }
