@@ -3,8 +3,6 @@ package client
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/arkriny/pkgrep/httputil"
 )
 
 type Opam struct {
@@ -17,5 +15,5 @@ func (c Opam) Name() string {
 
 func (c Opam) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://opam.ocaml.org/packages/%s/", query)
-	return httputil.GetCheckOK(c.HTTPClient, url)
+	return getCheckOK(c.HTTPClient, url)
 }

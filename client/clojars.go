@@ -3,8 +3,6 @@ package client
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/arkriny/pkgrep/httputil"
 )
 
 type Clojars struct {
@@ -17,5 +15,5 @@ func (c Clojars) Name() string {
 
 func (c Clojars) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://clojars.org/%s", query)
-	return httputil.GetCheckOK(c.HTTPClient, url)
+	return getCheckOK(c.HTTPClient, url)
 }

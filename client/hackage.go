@@ -3,8 +3,6 @@ package client
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/arkriny/pkgrep/httputil"
 )
 
 type Hackage struct {
@@ -17,5 +15,5 @@ func (c Hackage) Name() string {
 
 func (c Hackage) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://hackage.haskell.org/package/%s", query)
-	return httputil.GetCheckOK(c.HTTPClient, url)
+	return getCheckOK(c.HTTPClient, url)
 }

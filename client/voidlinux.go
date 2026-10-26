@@ -3,8 +3,6 @@ package client
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/arkriny/pkgrep/httputil"
 )
 
 type Voidlinux struct {
@@ -17,5 +15,5 @@ func (c Voidlinux) Name() string {
 
 func (c Voidlinux) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://api.github.com/repos/void-linux/void-packages/contents/srcpkgs/%s", query)
-	return httputil.GetCheckOK(c.HTTPClient, url)
+	return getCheckOK(c.HTTPClient, url)
 }

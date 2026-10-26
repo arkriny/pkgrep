@@ -1,4 +1,4 @@
-package httputil
+package client
 
 import (
 	"bufio"
@@ -7,9 +7,9 @@ import (
 	"net/http"
 )
 
-// GetCheckOK is a helper function that sends request to URL and checks if
+// getCheckOK is a helper function that sends request to URL and checks if
 // response status code is 200 (OK).
-func GetCheckOK(client *http.Client, url string) (bool, error) {
+func getCheckOK(client *http.Client, url string) (bool, error) {
 	resp, err := client.Get(url)
 	if err != nil {
 		return false, err
@@ -20,9 +20,9 @@ func GetCheckOK(client *http.Client, url string) (bool, error) {
 	return ok, nil
 }
 
-// GetBodyContains is a helper function that sends request to URL and checks if
+// getBodyContains is a helper function that sends request to URL and checks if
 // response status code is 200 (OK) and response body contains specified substr.
-func GetBodyContains(client *http.Client, url, substr string) (bool, error) {
+func getBodyContains(client *http.Client, url, substr string) (bool, error) {
 	resp, err := client.Get(url)
 	if err != nil {
 		return false, err

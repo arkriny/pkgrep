@@ -3,8 +3,6 @@ package client
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/arkriny/pkgrep/httputil"
 )
 
 type Macports struct {
@@ -17,5 +15,5 @@ func (c Macports) Name() string {
 
 func (c Macports) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://ports.macports.org/api/v1/ports/%s", query)
-	return httputil.GetCheckOK(c.HTTPClient, url)
+	return getCheckOK(c.HTTPClient, url)
 }

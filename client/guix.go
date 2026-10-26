@@ -3,8 +3,6 @@ package client
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/arkriny/pkgrep/httputil"
 )
 
 type Guix struct {
@@ -17,6 +15,6 @@ func (c Guix) Name() string {
 
 func (c Guix) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://hpc.guix.info/package/%s", query)
-	contains, err := httputil.GetBodyContains(c.HTTPClient, url, "<title>Guix-HPC — Oops!</title>")
+	contains, err := getBodyContains(c.HTTPClient, url, "<title>Guix-HPC — Oops!</title>")
 	return !contains, err
 }

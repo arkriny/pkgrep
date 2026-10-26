@@ -3,8 +3,6 @@ package client
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/arkriny/pkgrep/httputil"
 )
 
 type Snapcraft struct {
@@ -17,5 +15,5 @@ func (c Snapcraft) Name() string {
 
 func (c Snapcraft) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://snapcraft.io/%s", query)
-	return httputil.GetCheckOK(c.HTTPClient, url)
+	return getCheckOK(c.HTTPClient, url)
 }

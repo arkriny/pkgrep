@@ -3,8 +3,6 @@ package client
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/arkriny/pkgrep/httputil"
 )
 
 type Aosc struct {
@@ -17,5 +15,5 @@ func (c Aosc) Name() string {
 
 func (c Aosc) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://packages.aosc.io/packages/%s", query)
-	return httputil.GetCheckOK(c.HTTPClient, url)
+	return getCheckOK(c.HTTPClient, url)
 }

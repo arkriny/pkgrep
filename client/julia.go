@@ -3,8 +3,6 @@ package client
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/arkriny/pkgrep/httputil"
 )
 
 type Julia struct {
@@ -17,5 +15,5 @@ func (c Julia) Name() string {
 
 func (c Julia) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://juliapackages.com/p/%s", query)
-	return httputil.GetCheckOK(c.HTTPClient, url)
+	return getCheckOK(c.HTTPClient, url)
 }

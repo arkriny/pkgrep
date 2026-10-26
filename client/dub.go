@@ -3,8 +3,6 @@ package client
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/arkriny/pkgrep/httputil"
 )
 
 type Dub struct {
@@ -17,5 +15,5 @@ func (c Dub) Name() string {
 
 func (c Dub) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://code.dlang.org/packages/%s", query)
-	return httputil.GetCheckOK(c.HTTPClient, url)
+	return getCheckOK(c.HTTPClient, url)
 }

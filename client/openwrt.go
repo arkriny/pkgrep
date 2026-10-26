@@ -3,8 +3,6 @@ package client
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/arkriny/pkgrep/httputil"
 )
 
 type Openwrt struct {
@@ -17,6 +15,6 @@ func (c Openwrt) Name() string {
 
 func (c Openwrt) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://openwrt.org/packages/pkgdata/%s", query)
-	contains, err := httputil.GetBodyContains(c.HTTPClient, url, "This topic does not exist yet")
+	contains, err := getBodyContains(c.HTTPClient, url, "This topic does not exist yet")
 	return !contains, err
 }

@@ -3,8 +3,6 @@ package client
 import (
 	"fmt"
 	"net/http"
-
-	"github.com/arkriny/pkgrep/httputil"
 )
 
 type Npm struct {
@@ -17,5 +15,5 @@ func (c Npm) Name() string {
 
 func (c Npm) Query(query string) (bool, error) {
 	url := fmt.Sprintf("https://registry.npmjs.com/%s", query)
-	return httputil.GetCheckOK(c.HTTPClient, url)
+	return getCheckOK(c.HTTPClient, url)
 }
