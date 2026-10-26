@@ -56,7 +56,7 @@ var tests = []testcase{
 	{client.Pypi{HTTPClient: testHTTPClient}, "pip"},
 	{client.Rubygems{HTTPClient: testHTTPClient}, "rails"},
 	{client.Scoop{HTTPClient: testHTTPClient}, "go"},
-	{client.Sisyphus{HTTPClient: testHTTPClient}, "firmware-linux"},
+	// {client.Sisyphus{HTTPClient: testHTTPClient}, "firmware-linux"},
 	{client.Snapcraft{HTTPClient: testHTTPClient}, "go"},
 	{client.Ubuntu{HTTPClient: testHTTPClient}, "linux-firmware"},
 	{client.Voidlinux{HTTPClient: testHTTPClient}, "linux-firmware"},

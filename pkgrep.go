@@ -115,7 +115,7 @@ func main() {
 		client.Pypi{HTTPClient: httpClient},
 		client.Rubygems{HTTPClient: httpClient},
 		client.Scoop{HTTPClient: httpClient},
-		client.Sisyphus{HTTPClient: httpClient},
+		// client.Sisyphus{HTTPClient: httpClient},
 		client.Snapcraft{HTTPClient: httpClient},
 		client.Ubuntu{HTTPClient: httpClient},
 		client.Voidlinux{HTTPClient: httpClient},
